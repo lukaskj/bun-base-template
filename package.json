@@ -1,0 +1,21 @@
+{
+  "name": "@lukaskj/bun-base-template",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "init:husky": "bunx husky init",
+    "dev": "bun run src/index.ts",
+    "lint": "tsc -p . --noEmit && biome lint --write",
+    "format": "biome format --write",
+    "test:cov": "bun run test --coverage",
+    "test": "bun test --env-file .env.test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@faker-js/faker": "^9.4.0",
+    "@types/bun": "latest",
+    "husky": "^9.1.7",
+    "typescript": "^5.7.3"
+  }
+}
