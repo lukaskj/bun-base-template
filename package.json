@@ -17,6 +17,13 @@
     "@types/bun": "latest",
     "@types/node": "^22.15.31",
     "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "typescript": "^5.8.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "bun format",
+      "bun lint"
+    ]
   }
 }
