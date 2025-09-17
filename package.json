@@ -8,13 +8,14 @@
     "init:husky": "bunx husky init",
     "build": "bun run scripts/build.ts",
     "declaration": "bunx tsc -p tsconfig.build.json --outDir dist --declaration --emitDeclarationOnly",
-    "build:all": "bun run declaration && bun run scripts/build.ts",
+    "build:all": "rm -rf dist/ && bun run declaration && bun run scripts/build.ts",
     "dev": "bun run src/index.ts",
     "lint": "tsc -p . --noEmit && biome lint --write",
     "format": "biome format --write",
     "test:cov": "bun run test --coverage",
     "test": "bun test --env-file .env.test"
   },
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "^2.1.4",
     "@faker-js/faker": "^9.9.0",
