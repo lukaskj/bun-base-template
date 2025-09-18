@@ -1,12 +1,12 @@
 import Bun from "bun";
-import { renameSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, renameSync } from "node:fs";
+import { resolve } from "node:path";
 
 console.log("Starting build...");
 const start = Date.now();
 
 const buildConfig: Bun.BuildConfig = {
-  entrypoints: ["src/index.ts"],
+  entrypoints: ["src/index.ts", "src/neverthrow/index.ts"],
   outdir: "dist",
   target: "node",
   sourcemap: "inline",
@@ -22,16 +22,32 @@ const esmBuild = await Bun.build({
 outputLogs(esmBuild);
 
 if (esmBuild.success) {
-  renameSync(join(".", "dist", "index.js"), join(".", "dist", "index.mjs"));
+  for (const output of esmBuild.outputs.filter((o) => o.kind === "entry-point")) {
+    const path = resolve(output.path);
+    if (!existsSync(path) || !/\.js$/.test(path)) {
+      continue;
+    }
+
+    renameSync(path, path.replace(/\.js$/, ".mjs"));
+  }
 }
 
 const cjsBuild = await Bun.build({
   ...buildConfig,
   format: "cjs",
 });
+
 outputLogs(cjsBuild);
+
 if (cjsBuild.success) {
-  renameSync(join(".", "dist", "index.js"), join(".", "dist", "index.cjs"));
+  for (const output of cjsBuild.outputs.filter((o) => o.kind === "entry-point")) {
+    const path = resolve(output.path);
+    if (!existsSync(path) || !/\.js$/.test(path)) {
+      continue;
+    }
+
+    renameSync(path, path.replace(/\.js$/, ".cjs"));
+  }
 }
 
 function outputLogs(result: Bun.BuildOutput) {
