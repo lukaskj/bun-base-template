@@ -1,38 +1,21 @@
 {
   "name": "@lukaskj/bun-base-template",
   "version": "1.0.0",
-  "module": "src/index.ts",
-  "type": "module",
-  "scripts": {
-    "prepare": "husky",
-    "init:husky": "bunx husky init",
-    "build": "bun run scripts/build.ts",
-    "declaration": "bunx tsc -p tsconfig.build.json --outDir dist --declaration --emitDeclarationOnly",
-    "build:all": "rm -rf dist/ && bun run declaration && bun run scripts/build.ts",
-    "dev": "bun run src/index.ts",
-    "lint": "tsc -p . --noEmit && biome lint --write",
-    "format": "biome format --write",
-    "test:cov": "bun run test --coverage",
-    "test": "bun test --env-file .env.test"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukaskj/bun-base-template.git"
   },
-  "dependencies": {},
+  "main": "dist/index.mjs",
+  "module": "src/index.ts",
   "devDependencies": {
     "@biomejs/biome": "^2.1.4",
     "@faker-js/faker": "^9.9.0",
-    "@types/bun": "latest",
+    "@types/bun": "1.2.22",
     "@types/node": "^24.2.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
     "typescript": "^5.9.2"
   },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "bun format",
-      "bun lint"
-    ]
-  },
-  "main": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
@@ -49,21 +32,37 @@
     "bun-base-template": "dist/index.mjs",
     "bbt": "dist/index.mjs"
   },
-  "engines": {
-    "node": ">=23",
-    "bun": ">= 1.2.20"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lukaskj/bun-base-template.git"
-  },
   "bugs": {
     "url": "https://github.com/lukaskj/bun-base-template/issues"
   },
-  "homepage": "https://github.com/lukaskj/bun-base-template#readme",
+  "engines": {
+    "node": ">=23",
+    "bun": ">= 1.2.22"
+  },
   "files": [
     "dist/**/*",
     "!**/test/**",
     "!node_modules"
-  ]
+  ],
+  "homepage": "https://github.com/lukaskj/bun-base-template#readme",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "bun format",
+      "bun lint"
+    ]
+  },
+  "scripts": {
+    "prepare": "husky",
+    "init:husky": "bunx husky init",
+    "build": "bun run scripts/build.ts",
+    "declaration": "bunx tsc -p tsconfig.build.json --outDir dist --declaration --emitDeclarationOnly",
+    "build:all": "rm -rf dist/ && bun run declaration && bun run scripts/build.ts",
+    "dev": "bun run src/index.ts",
+    "lint": "tsc -p . --noEmit && biome lint --write",
+    "format": "biome format --write",
+    "test:cov": "bun run test --coverage",
+    "test": "bun test --env-file .env.test"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts"
 }
