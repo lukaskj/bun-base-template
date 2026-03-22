@@ -13,7 +13,7 @@ git init
 bun install
 
 # Replace package name in package.json file
-sed -i s#@lukaskj/bun-base-template#$(basename "$PWD")#g package.json
+sed -i s#@lukaskj/bun-base-template#$(basename "$PWD")#g package.json bun.lock README.md
 
 git add .
 git commit -m 'initial commit'
