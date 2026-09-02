@@ -8,9 +8,7 @@ Template for [Bun](https://bun.sh/) projects.
 git clone --depth=1 https://github.com/lukaskj/bun-base-template example-project
 cd example-project/
 
-rm -rf .git
-git init
-bun install
+rm -rf .git && git init && bun install
 
 # Replace package name in package.json file
 sed -i s#@lukaskj/bun-base-template#$(basename "$PWD")#g package.json bun.lock README.md
